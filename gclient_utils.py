@@ -74,6 +74,10 @@ def SplitUrlRevision(url):
     # Make sure ssh://user-name@example.com/~/test.git@stable works
     regex = r'(ssh://(?:[-.\w]+@)?[-\w:\.]+/[-~\w\./]+)(?:@(.+))?'
     components = re.search(regex, url).groups()
+  elif url.startswith('https:'):
+    # Make sure https://user-name:password@example.com/~/test.git@stable works
+    regex = r'(https://(?:[-.:\w]+@)?[-\w:\.]+/[-~\w\./]+)(?:@(.+))?'
+    components = re.search(regex, url).groups()
   else:
     components = url.rsplit('@', 1)
     if re.match(r'^\w+\@', url) and '@' not in components[0]:
